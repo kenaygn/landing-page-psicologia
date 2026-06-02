@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayck de Luca - Psicólogo Clínico</title>
+    
+    <script src="https://kit.fontawesome.com/04a1096a36.js" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&family=Imperial+Script&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#242321',    /* Dark Charcoal */
+                            taupe: '#A59E94',   /* Warm Taupe */
+                            light: '#F4F3F0',   /* Off-white/Beige background */
+                            wpp: '#25D366'      /* WhatsApp Green */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Frank Ruhl Libre"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        script: ['"Imperial Script"', 'cursive'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations & Utilities */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pulse-wpp {
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Unified Floating Animation for Cards */
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .animate-float {
+            animation: float-card 4s ease-in-out infinite;
+        }
+        .anim-delay-1 { animation-delay: 1s; }
+        .anim-delay-2 { animation-delay: 2s; }
+        .anim-delay-3 { animation-delay: 3s; }
+
+        /* Glassmorphism for mobile menu & navbar */
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-dark {
+            background: rgba(36, 35, 33, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-brand-dark bg-white antialiased selection:bg-brand-taupe selection:text-white">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 glass">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <a href="#" class="font-script text-4xl text-brand-dark hover:text-brand-taupe transition-colors">
+                Mayck de Luca
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8 font-serif text-lg">
+                <a href="#inicio" class="relative group">
+                    Início
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#servicos" class="relative group">
+                    Serviços
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#sobre" class="relative group">
+                    Sobre Mim
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#depoimentos" class="relative group">
+                    Depoimentos
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#faq" class="relative group">
+                    FAQ
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contatos" class="relative group">
+                    Contatos
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="https://wa.me/556192412838?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" 
+                   class="bg-brand-dark text-white px-6 py-2 rounded-full font-sans text-sm font-medium hover:bg-brand-taupe transition-colors shadow-md">
+                    Agendar Sessão
+                </a>
+            </div>
+
+            <button id="mobile-btn" class="md:hidden text-brand-dark text-2xl focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 glass-dark z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center">
+        <button id="close-menu" class="absolute top-6 right-6 text-white text-3xl">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="flex flex-col space-y-8 text-center font-serif text-2xl text-white">
+            <a href="#inicio" class="mobile-link hover:text-brand-taupe transition-colors">Início</a>
+            <a href="#servicos" class="mobile-link hover:text-brand-taupe transition-colors">Serviços</a>
+            <a href="#sobre" class="mobile-link hover:text-brand-taupe transition-colors">Sobre Mim</a>
+            <a href="#depoimentos" class="mobile-link hover:text-brand-taupe transition-colors">Depoimentos</a>
+            <a href="#faq" class="mobile-link hover:text-brand-taupe transition-colors">FAQ</a>
+            <a href="#contatos" class="mobile-link hover:text-brand-taupe transition-colors">Contatos</a>
+            <a href="https://wa.me/556192412838?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" 
+               class="bg-brand-wpp text-white px-8 py-3 rounded-full font-sans text-base font-semibold mt-4 shadow-lg">
+                <i class="fa-brands fa-whatsapp mr-2"></i> Agendar Sessão
+            </a>
+        </div>
+    </div>
+
+    <a href="https://wa.me/556192412838?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20atendimentos." target="_blank" 
+       class="fixed bottom-6 right-6 z-50 bg-brand-wpp text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition-transform pulse-wpp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <section id="inicio" class="relative pt-32 pb-24 lg:pt-48 lg:pb-36 bg-brand-light overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-taupe opacity-10 blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="text-center lg:text-left reveal">
+                <p class="font-serif text-brand-taupe text-xl mb-2 font-medium tracking-wide">Psicólogo Clínico | CRP 01/25.068</p>
+                <h1 class="font-script text-6xl md:text-8xl text-brand-dark mb-6 leading-tight">Mayck de Luca</h1>
+                <p class="font-sans text-gray-600 text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                    Aqui, você encontra um espaço seguro e acolhedor para explorar suas emoções e reencontrar o seu bem-estar.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="https://wa.me/556192412838?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" 
+                       class="bg-brand-wpp text-white px-8 py-4 rounded-full font-semibold font-sans hover:-translate-y-1 hover:shadow-xl transition-all w-full sm:w-auto text-center flex justify-center items-center gap-2 text-lg">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        Agende sua Consulta
+                    </a>
+                    <a href="#sobre" class="text-brand-dark font-medium font-sans hover:text-brand-taupe transition-colors px-6 py-4">
+                        Conheça minha trajetória &rarr;
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative reveal delay-200 hidden md:block max-w-md mx-auto w-full">
+                
+                <div class="relative w-full aspect-[4/5]">
+                    <div class="absolute inset-0 bg-brand-taupe transform translate-x-4 translate-y-4 rounded-3xl"></div>
+                    <img src="img2.png" alt="Consultório de Psicologia" class="relative z-10 w-full h-full object-cover rounded-3xl shadow-2xl">
+                </div>
+                
+                <div class="absolute top-12 -right-12 md:-right-24 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-lg flex items-center gap-3 animate-float hover:scale-105 transition-transform z-20">
+                    <div class="bg-[#25D366]/10 p-2 rounded-full text-[#25D366]">
+                        <i class="fa-solid fa-video text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-brand-dark font-sans font-bold text-sm leading-none mb-1">Sessões Online</p>
+                        <p class="text-[11px] text-gray-500 font-sans leading-none">Para todo o Brasil</p>
+                    </div>
+                </div>
+
+                <div class="absolute top-1/4 -left-12 md:-left-28 bg-white/95 backdrop-blur-sm p-2.5 rounded-2xl shadow-lg flex items-center gap-3 animate-float anim-delay-1 hover:scale-105 transition-transform z-20">
+                    <div class="bg-blue-500/10 p-2 rounded-full text-blue-500">
+                        <i class="fa-solid fa-user-lock text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-brand-dark font-serif font-bold text-sm leading-none mb-1">Sigilo Absoluto</p>
+                        <p class="text-[10px] text-gray-500 font-sans uppercase tracking-wider leading-none">Ambiente Seguro</p>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-16 -left-10 md:-left-20 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-xl flex items-center gap-3 animate-float anim-delay-2 hover:scale-105 transition-transform z-20">
+                    <div class="bg-brand-light p-2 rounded-full text-brand-taupe">
+                        <i class="fa-solid fa-shield-heart text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-500 font-sans font-medium uppercase tracking-wider leading-none mb-1">Atendimento</p>
+                        <p class="text-brand-dark font-serif font-bold text-sm leading-none">Acolhedor & Ético</p>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-32 -right-10 md:-right-24 bg-white/95 backdrop-blur-sm p-2.5 rounded-2xl shadow-lg flex items-center gap-3 animate-float anim-delay-3 hover:scale-105 transition-transform z-20">
+                    <div class="bg-brand-taupe/10 p-2 rounded-full text-brand-taupe">
+                        <i class="fa-solid fa-certificate text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-brand-dark font-sans font-bold text-sm leading-none mb-1">Profissional</p>
+                        <p class="text-[10px] text-gray-500 font-sans uppercase tracking-wider leading-none">Especializado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-12 md:h-20 text-white block">
+                <path fill="currentColor" d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60 L1440,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="servicos" class="relative pt-24 pb-32 bg-white">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-script text-5xl md:text-6xl text-brand-dark mb-4">Como posso te ajudar?</h2>
+                <div class="h-1 w-24 bg-brand-taupe mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-500 font-sans max-w-2xl mx-auto text-lg">A psicoterapia é um espaço seguro e livre de julgamentos para acolher e tratar diversas questões que afetam o seu bem-estar.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-20">
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal flex flex-col items-center">
+                    <i class="fa-solid fa-cloud-bolt text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Ansiedade</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Preocupação constante, medos paralisantes e sensação de que algo ruim vai acontecer a qualquer momento.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-100 flex flex-col items-center">
+                    <i class="fa-solid fa-battery-quarter text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Esgotamento e Burnout</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Cansaço mental e físico extremo, geralmente ligado ao excesso de trabalho ou responsabilidades.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-200 flex flex-col items-center">
+                    <i class="fa-solid fa-seedling text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Baixa Autoestima</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Sentimentos de insecurity, insuficiência e dificuldade de reconhecer seu próprio valor e potenciais.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-300 flex flex-col items-center">
+                    <i class="fa-solid fa-droplet text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Depressão</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Tristeza profunda, falta de energia, desmotivação e perda de interesse nas atividades do dia a dia.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal flex flex-col items-center">
+                    <i class="fa-solid fa-heart-crack text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Relacionamentos</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Dificuldades de comunicação, conflitos constantes, dependência emocional ou dores de términos.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-100 flex flex-col items-center">
+                    <i class="fa-solid fa-wind text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Estresse Crônico</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Sobrecarga emocional constante que afeta sua rotina, qualidade de sono, saúde física e foco.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-200 flex flex-col items-center">
+                    <i class="fa-solid fa-dove text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Luto e Perdas</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Acolhimento no processo de dor e reorganização da vida após a perda de entes queridos ou mudanças drásticas.</p>
+                </div>
+                <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-300 flex flex-col items-center">
+                    <i class="fa-solid fa-compass text-3xl text-brand-taupe mb-3"></i>
+                    <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Autoconhecimento</h3>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Uma jornada para entender suas emoções, estabelecer limites saudáveis e descobrir seus propósitos.</p>
+                </div>
+            </div>
+
+            <div class="pt-16 border-t border-gray-100">
+                <div class="text-center mb-12 reveal">
+                    <h3 class="font-serif text-3xl md:text-4xl text-brand-dark mb-4 font-bold">Outros Serviços</h3>
+                    <div class="h-1 w-16 bg-brand-taupe mx-auto rounded-full"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="border border-gray-100 bg-white rounded-3xl p-8 hover:shadow-soft transition-all hover:-translate-y-2 reveal group flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+                        <div class="w-20 h-20 shrink-0 bg-brand-light rounded-2xl flex items-center justify-center text-brand-taupe text-3xl group-hover:bg-brand-taupe group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Avaliação Neuropsicológica</h4>
+                            <p class="text-gray-600 font-sans leading-relaxed text-sm md:text-base">
+                                Investigação aprofundada das funções cognitivas (memória, atenção, linguagem) para auxiliar no diagnóstico e no planejamento de intervenções.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-100 bg-white rounded-3xl p-8 hover:shadow-soft transition-all hover:-translate-y-2 reveal delay-100 group flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+                        <div class="w-20 h-20 shrink-0 bg-brand-light rounded-2xl flex items-center justify-center text-brand-taupe text-3xl group-hover:bg-brand-taupe group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-2xl font-bold text-brand-dark mb-2">Avaliação Psicológica</h4>
+                            <p class="text-gray-600 font-sans leading-relaxed text-sm md:text-base">
+                                Processo de coleta de informações para compreender aspectos emocionais, comportamentais e de personalidade, visando um tratamento eficaz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-12 md:h-20 text-brand-dark scale-x-[-1] block">
+                <path fill="currentColor" d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60 L1440,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="sobre" class="relative pt-24 pb-32 bg-brand-dark text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div class="order-2 lg:order-1 relative reveal">
+                <div class="absolute inset-0 bg-brand-taupe transform translate-x-4 translate-y-4 rounded-3xl"></div>
+                <img src="img1.jpeg" alt="Mayck de Luca - Psicólogo" class="relative z-10 w-full h-auto object-cover rounded-3xl shadow-2xl aspect-[4/5]">
+            </div>
+            
+            <div class="order-1 lg:order-2 reveal delay-100">
+                <h2 class="font-script text-5xl md:text-6xl text-brand-taupe mb-2">Muito Prazer,</h2>
+                <h3 class="font-serif text-3xl md:text-4xl font-bold mb-8">Sou Mayck de Luca</h3>
+                
+                <div class="space-y-6 font-sans text-gray-300 text-lg leading-relaxed">
+                    <p>
+                        Sou psicólogo devidamente registrado no <strong class="text-white">CRP: 01/25.068</strong>. Tendo a Psicologia Analítica como referencial teórico, atuo com foco na Psicologia Clínica, pautando meu trabalho no rigor científico e ético, ao mesmo tempo em que promovo um espaço acolhedor e seguro.
+                    </p>
+    
+                    <p>
+                        Aqui, você poderá explorar suas questões com tranquilidade, aprofundar seu autoconhecimento e desenvolver recursos para enfrentar os desafios e as complexidades da vida cotidiana.
+                </div>
+                
+                <div class="mt-10">
+                    <p class="font-serif text-xl italic mb-6">"Ninguém se ilumina imaginando figuras de luz, mas tornando consciente a escuridão.” (Jung)</p>
+                    <a href="https://wa.me/556192412838" target="_blank" 
+                       class="inline-flex items-center gap-3 bg-brand-taupe text-brand-dark px-8 py-4 rounded-full font-bold font-sans hover:bg-white hover:shadow-lg transition-all">
+                        Falar com o Psicólogo
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-12 md:h-20 text-brand-light block">
+                <path fill="currentColor" d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60 L1440,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="depoimentos" class="relative pt-24 pb-32 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-script text-5xl md:text-6xl text-brand-dark mb-4">Depoimentos</h2>
+                <div class="h-1 w-24 bg-brand-taupe mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-500 font-sans text-lg max-w-2xl mx-auto">Relatos de quem já iniciou a sua jornada de transformação, autoconhecimento e bem-estar.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 reveal group relative">
+                    <i class="fa-solid fa-quote-right text-6xl text-brand-light absolute top-6 right-6 z-0 group-hover:text-brand-taupe/20 transition-colors"></i>
+                    <div class="relative z-10">
+                        <div class="flex text-yellow-400 mb-6 text-sm gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-sans text-gray-600 leading-relaxed mb-8 italic">"O acolhimento nas sessões foi fundamental para eu conseguir lidar com minhas crises de ansiedade. Me senti escutada sem julgamentos desde o primeiro dia. A terapia online facilitou muito a minha rotina."</p>
+                        <div class="flex items-center gap-4 border-t border-gray-100 pt-6">
+                            <div class="w-10 h-10 bg-brand-taupe/20 rounded-full flex items-center justify-center text-brand-taupe font-serif font-bold">A.</div>
+                            <div>
+                                <p class="font-serif font-bold text-brand-dark leading-none">Ana S.</p>
+                                <p class="font-sans text-xs text-gray-400 mt-1">Atendimento Online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 reveal delay-100 group relative">
+                    <i class="fa-solid fa-quote-right text-6xl text-brand-light absolute top-6 right-6 z-0 group-hover:text-brand-taupe/20 transition-colors"></i>
+                    <div class="relative z-10">
+                        <div class="flex text-yellow-400 mb-6 text-sm gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-sans text-gray-600 leading-relaxed mb-8 italic">"Eu estava num nível de esgotamento extremo no trabalho. As sessões me ajudaram a impor limites saudáveis, recuperar a minha autoestima e ver a vida com muito mais leveza. Recomendo de olhos fechados."</p>
+                        <div class="flex items-center gap-4 border-t border-gray-100 pt-6">
+                            <div class="w-10 h-10 bg-brand-taupe/20 rounded-full flex items-center justify-center text-brand-taupe font-serif font-bold">M.</div>
+                            <div>
+                                <p class="font-serif font-bold text-brand-dark leading-none">Maria R.</p>
+                                <p class="font-sans text-xs text-gray-400 mt-1">Atendimento Online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 reveal delay-200 group relative">
+                    <i class="fa-solid fa-quote-right text-6xl text-brand-light absolute top-6 right-6 z-0 group-hover:text-brand-taupe/20 transition-colors"></i>
+                    <div class="relative z-10">
+                        <div class="flex text-yellow-400 mb-6 text-sm gap-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-sans text-gray-600 leading-relaxed mb-8 italic">"Sempre tive receio de fazer terapia, mas o profissionalismo e a ética me deixaram super à vontade. Hoje o meu momento da terapia é a melhor parte da minha semana. Uma jornada incrível de autoconhecimento."</p>
+                        <div class="flex items-center gap-4 border-t border-gray-100 pt-6">
+                            <div class="w-10 h-10 bg-brand-taupe/20 rounded-full flex items-center justify-center text-brand-taupe font-serif font-bold">L.</div>
+                            <div>
+                                <p class="font-serif font-bold text-brand-dark leading-none">Luiz C.</p>
+                                <p class="font-sans text-xs text-gray-400 mt-1">Atendimento Online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-12 md:h-20 text-white scale-x-[-1] block">
+                <path fill="currentColor" d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60 L1440,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="faq" class="relative pt-24 pb-32 bg-white">
+        <div class="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-script text-5xl md:text-6xl text-brand-dark mb-4">Perguntas Frequentes</h2>
+                <div class="h-1 w-24 bg-brand-taupe mx-auto rounded-full"></div>
+                <p class="mt-6 text-gray-500 font-sans text-lg">Tire suas dúvidas sobre os atendimentos e dê o primeiro passo para cuidar da sua saúde mental.</p>
+            </div>
+
+            <div class="space-y-4 reveal delay-100">
+                <div class="border border-brand-light rounded-2xl overflow-hidden bg-brand-light/30 hover:shadow-soft transition-all">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-serif font-bold text-xl text-brand-dark pr-4">Como funciona a terapia online?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-taupe transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 font-sans text-gray-600 text-base leading-relaxed">
+                        A terapia online ocorre por meio de videochamadas seguras e privativas. Você só precisa de um dispositivo com internet (celular, computador ou tablet), fones de ouvido e um ambiente confortável onde não seja interrompido(a).
+                    </div>
+                </div>
+
+                <div class="border border-brand-light rounded-2xl overflow-hidden bg-brand-light/30 hover:shadow-soft transition-all">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-serif font-bold text-xl text-brand-dark pr-4">Qual é a duração e a frequência das sessões?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-taupe transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 font-sans text-gray-600 text-base leading-relaxed">
+                        Cada sessão tem a duração de aproximadamente 50 minutos. A frequência inicial geralmente é semanal, podendo ser ajustada de acordo com as necessidades e a evolução terapêutica de cada paciente.
+                    </div>
+                </div>
+
+                <div class="border border-brand-light rounded-2xl overflow-hidden bg-brand-light/30 hover:shadow-soft transition-all">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-serif font-bold text-xl text-brand-dark pr-4">Você atende por plano de saúde (convênio)?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-taupe transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 font-sans text-gray-600 text-base leading-relaxed">
+                        Os atendimentos são estritamente particulares. Contudo, emito recibo com todas as informações necessárias para que você possa solicitar o reembolso junto ao seu plano de saúde, caso ele ofereça essa modalidade.
+                    </div>
+                </div>
+
+                <div class="border border-brand-light rounded-2xl overflow-hidden bg-brand-light/30 hover:shadow-soft transition-all">
+                    <button class="faq-button w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-serif font-bold text-xl text-brand-dark pr-4">A terapia é sigilosa?</span>
+                        <i class="fa-solid fa-chevron-down text-brand-taupe transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6 font-sans text-gray-600 text-base leading-relaxed">
+                        Sim, de forma absoluta. Como profissional de psicologia, sigo rigorosamente o Código de Ética Profissional. Tudo o que é compartilhado em sessão é mantido sob estrito sigilo.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20 pointer-events-none">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-12 md:h-20 text-brand-light block">
+                <path fill="currentColor" d="M0,60 C320,120 420,0 720,60 C1020,120 1120,0 1440,60 L1440,120 L0,120 Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <section id="contatos" class="py-24 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 text-center relative z-10">
+            <div class="reveal">
+                <h2 class="font-script text-5xl md:text-6xl text-brand-dark mb-4">Vamos Conversar?</h2>
+                <div class="h-1 w-24 bg-brand-taupe mx-auto rounded-full mb-6"></div>
+                <p class="font-sans text-gray-600 text-lg max-w-2xl mx-auto mb-16">Dê o primeiro passo para o seu bem-estar. Escolha o canal de sua preferência para entrar em contato.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal delay-100">
+                <a href="https://wa.me/556192412838" target="_blank" class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 flex flex-col items-center group">
+                    <div class="w-16 h-16 bg-[#25D366]/10 text-[#25D366] rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-[#25D366] group-hover:text-white transition-colors">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl mb-1 text-brand-dark">WhatsApp</h4>
+                    <p class="font-sans text-gray-500">(61) 99241-2838</p>
+                </a>
+
+                <a href="https://www.instagram.com/psi.mayckdeluca/" target="_blank" class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 flex flex-col items-center group">
+                    <div class="w-16 h-16 bg-[#E1306C]/10 text-[#E1306C] rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-gradient-to-tr group-hover:from-[#F56040] group-hover:to-[#833AB4] group-hover:text-white transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl mb-1 text-brand-dark">Instagram</h4>
+                    <p class="font-sans text-gray-500">@psi.mayckdeluca</p>
+                </a>
+
+                <a href="mailto:mayckdeluca@gmail.com" class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 flex flex-col items-center group">
+                    <div class="w-16 h-16 bg-brand-taupe/10 text-brand-taupe rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-brand-taupe group-hover:text-white transition-colors">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl mb-1 text-brand-dark">E-mail</h4>
+                    <p class="font-sans text-gray-500 text-sm">psi.mayckdeluca@gmail.com</p>
+                </a>
+
+                <a href="tel:+556192412838" class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-soft transition-all hover:-translate-y-2 flex flex-col items-center group">
+                    <div class="w-16 h-16 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+                    <h4 class="font-serif font-bold text-xl mb-1 text-brand-dark">Telefone</h4>
+                    <p class="font-sans text-gray-500">(61) 99241-2838</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-dark pt-16 pb-8 rounded-t-[32px] md:rounded-t-[48px] relative z-20">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                
+                <div class="text-center md:text-left">
+                    <a href="#" class="font-script text-5xl text-brand-taupe inline-block mb-4 hover:text-white transition-colors">
+                        Mayck de Luca
+                    </a>
+                    <div class="font-sans text-gray-400 text-sm leading-relaxed space-y-2">
+                        <p class="font-bold text-white text-base">Mayck de Luca Gomes Oliveira</p>
+                        <p>Psicólogo Clínico</p>
+                        <p class="mt-4">Atendimento online para todo o Brasil. Um espaço de escuta, acolhimento e transformação.</p>
+                    </div>
+                </div>
+
+                <div class="text-center md:text-left md:pl-10">
+                    <h4 class="font-serif text-white text-xl mb-6">Navegação</h4>
+                    <ul class="space-y-3 font-sans text-gray-400 text-sm">
+                        <li><a href="#inicio" class="hover:text-brand-taupe transition-colors inline-block">Início</a></li>
+                        <li><a href="#servicos" class="hover:text-brand-taupe transition-colors inline-block">Serviços</a></li>
+                        <li><a href="#sobre" class="hover:text-brand-taupe transition-colors inline-block">Sobre Mim</a></li>
+                        <li><a href="#depoimentos" class="hover:text-brand-taupe transition-colors inline-block">Depoimentos</a></li>
+                        <li><a href="#faq" class="hover:text-brand-taupe transition-colors inline-block">FAQ</a></li>
+                        <li><a href="#contatos" class="hover:text-brand-taupe transition-colors inline-block">Contatos</a></li>
+                    </ul>
+                </div>
+
+                <div class="text-center md:text-left">
+                    <h4 class="font-serif text-white text-xl mb-6">Contato</h4>
+                    <ul class="space-y-4 font-sans text-gray-400 text-sm">
+                        <li>
+                            <a href="https://wa.me/556192412838" class="flex items-center justify-center md:justify-start gap-3 hover:text-[#25D366] transition-colors">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> (61) 99241-2838
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:mayckdeluca@gmail.com" class="flex items-center justify-center md:justify-start gap-3 hover:text-white transition-colors">
+                                <i class="fa-regular fa-envelope text-lg"></i> psi.mayckdeluca@gmail.com
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/psi.mayckdeluca/" class="flex items-center justify-center md:justify-start gap-3 hover:text-[#E1306C] transition-colors">
+                                <i class="fa-brands fa-instagram text-lg"></i> @psi.mayckdeluca
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col items-center justify-center font-sans text-sm text-gray-500 text-center">
+                <p>&copy; <span id="year"></span> Mayck de Luca Gomes Oliveira. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set Current Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-btn');
+        const closeMenuBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden'); // Prevent scrolling when menu is open
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+
+        // Scroll Animation (Reveal Elements)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Trigger point
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // FAQ Accordion Logic
+        const faqButtons = document.querySelectorAll('.faq-button');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('i');
+                const isExpanded = !content.classList.contains('hidden');
+
+                // Fecha todas as outras perguntas
+                faqButtons.forEach(btn => {
+                    btn.nextElementSibling.classList.add('hidden');
+                    btn.querySelector('i').classList.remove('rotate-180');
+                });
+
+                // Se a pergunta clicada não estava aberta, abre ela
+                if (!isExpanded) {
+                    content.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
