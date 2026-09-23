@@ -5,7 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mayck de Luca - Psicólogo Clínico</title>
-    
+    <meta name="description" content="Mayck de Luca, Psicólogo Clínico (CRP 01/25.068). Atendimento psicológico online para todo o Brasil. Um espaço seguro e acolhedor para cuidar da sua saúde mental.">
+    <meta property="og:title" content="Mayck de Luca - Psicólogo Clínico">
+    <meta property="og:description" content="Atendimento psicológico online para todo o Brasil. Agende sua consulta e dê o primeiro passo para o seu bem-estar.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="img1.jpeg">
+    <meta name="theme-color" content="#242321">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
     <script src="https://kit.fontawesome.com/04a1096a36.js" crossorigin="anonymous"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,10 +26,11 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#242321',    /* Dark Charcoal */
-                            taupe: '#A59E94',   /* Warm Taupe */
-                            light: '#F4F3F0',   /* Off-white/Beige background */
-                            wpp: '#25D366'      /* WhatsApp Green */
+                            dark: '#242321',      /* Dark Charcoal */
+                            taupe: '#A59E94',     /* Warm Taupe */
+                            taupeDark: '#6B6156', /* Darker Taupe, for accessible text on light bg */
+                            light: '#F4F3F0',     /* Off-white/Beige background */
+                            wpp: '#25D366'        /* WhatsApp Green */
                         }
                     },
                     fontFamily: {
@@ -39,6 +47,11 @@
     </script>
 
     <style>
+        /* Keeps fixed navbar from covering section titles on anchor navigation */
+        section[id] {
+            scroll-margin-top: 6rem;
+        }
+
         /* Custom Animations & Utilities */
         .reveal {
             opacity: 0;
@@ -90,11 +103,11 @@
 
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 glass">
         <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-            <a href="#" class="font-script text-4xl text-brand-dark hover:text-brand-taupe transition-colors">
+            <a href="#" class="font-script text-3xl lg:text-4xl text-brand-dark hover:text-brand-taupe transition-colors whitespace-nowrap">
                 Mayck de Luca
             </a>
-            
-            <div class="hidden md:flex items-center space-x-8 font-serif text-lg">
+
+            <div class="hidden lg:flex items-center space-x-5 xl:space-x-8 font-serif text-base xl:text-lg whitespace-nowrap">
                 <a href="#inicio" class="relative group">
                     Início
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
@@ -119,13 +132,13 @@
                     Contatos
                     <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-taupe transition-all duration-300 group-hover:w-full"></span>
                 </a>
-                <a href="https://wa.me/556192412838?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" 
+                <a href="https://wa.me/556192412838?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta." target="_blank"
                    class="bg-brand-dark text-white px-6 py-2 rounded-full font-sans text-sm font-medium hover:bg-brand-taupe transition-colors shadow-md">
                     Agendar Sessão
                 </a>
             </div>
 
-            <button id="mobile-btn" class="md:hidden text-brand-dark text-2xl focus:outline-none">
+            <button id="mobile-btn" class="lg:hidden text-brand-dark text-2xl focus:outline-none">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
@@ -159,7 +172,7 @@
         
         <div class="max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <div class="text-center lg:text-left reveal">
-                <p class="font-serif text-brand-taupe text-xl mb-2 font-medium tracking-wide">Psicólogo Clínico | CRP 01/25.068</p>
+                <p class="font-serif text-brand-taupeDark text-xl mb-2 font-medium tracking-wide">Psicólogo Clínico | CRP 01/25.068</p>
                 <h1 class="font-script text-6xl md:text-8xl text-brand-dark mb-6 leading-tight">Mayck de Luca</h1>
                 <p class="font-sans text-gray-600 text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                     Aqui, você encontra um espaço seguro e acolhedor para explorar suas emoções e reencontrar o seu bem-estar.
@@ -176,14 +189,14 @@
                 </div>
             </div>
             
-            <div class="relative reveal delay-200 hidden md:block max-w-md mx-auto w-full">
+            <div class="relative reveal delay-200 hidden lg:block max-w-md mx-auto w-full">
                 
                 <div class="relative w-full aspect-[4/5]">
                     <div class="absolute inset-0 bg-brand-taupe transform translate-x-4 translate-y-4 rounded-3xl"></div>
                     <img src="img2.png" alt="Consultório de Psicologia" class="relative z-10 w-full h-full object-cover rounded-3xl shadow-2xl">
                 </div>
                 
-                <div class="absolute top-12 -right-12 md:-right-24 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-lg flex items-center gap-3 animate-float hover:scale-105 transition-transform z-20">
+                <div class="absolute top-10 right-2 2xl:-right-16 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-lg flex items-center gap-3 animate-float hover:scale-105 transition-transform z-20">
                     <div class="bg-[#25D366]/10 p-2 rounded-full text-[#25D366]">
                         <i class="fa-solid fa-video text-lg"></i>
                     </div>
@@ -193,7 +206,7 @@
                     </div>
                 </div>
 
-                <div class="absolute top-1/4 -left-12 md:-left-28 bg-white/95 backdrop-blur-sm p-2.5 rounded-2xl shadow-lg flex items-center gap-3 animate-float anim-delay-1 hover:scale-105 transition-transform z-20">
+                <div class="absolute top-1/4 left-2 2xl:-left-20 bg-white/95 backdrop-blur-sm p-2.5 rounded-2xl shadow-lg flex items-center gap-3 animate-float anim-delay-1 hover:scale-105 transition-transform z-20">
                     <div class="bg-blue-500/10 p-2 rounded-full text-blue-500">
                         <i class="fa-solid fa-user-lock text-sm"></i>
                     </div>
@@ -203,7 +216,7 @@
                     </div>
                 </div>
 
-                <div class="absolute bottom-16 -left-10 md:-left-20 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-xl flex items-center gap-3 animate-float anim-delay-2 hover:scale-105 transition-transform z-20">
+                <div class="absolute bottom-16 left-2 2xl:-left-14 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-xl flex items-center gap-3 animate-float anim-delay-2 hover:scale-105 transition-transform z-20">
                     <div class="bg-brand-light p-2 rounded-full text-brand-taupe">
                         <i class="fa-solid fa-shield-heart text-lg"></i>
                     </div>
@@ -213,7 +226,7 @@
                     </div>
                 </div>
 
-                <div class="absolute bottom-32 -right-10 md:-right-24 bg-white/95 backdrop-blur-sm p-2.5 rounded-2xl shadow-lg flex items-center gap-3 animate-float anim-delay-3 hover:scale-105 transition-transform z-20">
+                <div class="absolute bottom-28 right-2 2xl:-right-16 bg-white/95 backdrop-blur-sm p-2.5 rounded-2xl shadow-lg flex items-center gap-3 animate-float anim-delay-3 hover:scale-105 transition-transform z-20">
                     <div class="bg-brand-taupe/10 p-2 rounded-full text-brand-taupe">
                         <i class="fa-solid fa-certificate text-sm"></i>
                     </div>
@@ -255,7 +268,7 @@
                 <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-200 flex flex-col items-center">
                     <i class="fa-solid fa-seedling text-3xl text-brand-taupe mb-3"></i>
                     <h3 class="font-serif font-bold text-brand-dark text-lg md:text-xl mb-2">Baixa Autoestima</h3>
-                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Sentimentos de insecurity, insuficiência e dificuldade de reconhecer seu próprio valor e potenciais.</p>
+                    <p class="font-sans text-xs md:text-sm text-gray-500 leading-relaxed">Sentimentos de insegurança, insuficiência e dificuldade de reconhecer seu próprio valor e potenciais.</p>
                 </div>
                 <div class="bg-brand-light rounded-2xl p-6 text-center hover:shadow-soft transition-all hover:-translate-y-1 reveal delay-300 flex flex-col items-center">
                     <i class="fa-solid fa-droplet text-3xl text-brand-taupe mb-3"></i>
@@ -344,6 +357,7 @@
     
                     <p>
                         Aqui, você poderá explorar suas questões com tranquilidade, aprofundar seu autoconhecimento e desenvolver recursos para enfrentar os desafios e as complexidades da vida cotidiana.
+                    </p>
                 </div>
                 
                 <div class="mt-10">
